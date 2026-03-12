@@ -4,49 +4,74 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 <ArticleLayout
   title="Agentic Learning Fabric"
-  titleEn="Agentic Learning Fabric: Designing Next-Gen Learning Infrastructure"
-  type="에세이 · Essay"
+  titleEn="Agentic Learning Fabric: Next-Gen Multi-Agent Learning Platform Architecture"
+  type="기술 아키텍처 · Technical Architecture"
   date="2025"
-  description="AI 에이전트 기반의 차세대 학습 인프라 개념. 학습자 개개인에게 반응하고 스스로 진화하는 학습 환경은 어떻게 설계될 수 있는가."
-  tags={['AI Agent', 'Learning Design', 'EdTech', 'Infrastructure']}
+  description="다중 AI 에이전트가 공용 데이터·정책·신뢰 레이어 위에서 협업하는 차세대 학습 플랫폼의 5계층 기술 아키텍처와 실현 프레임워크."
+  tags={['AI Agent', 'LMS', 'EdTech', 'Multi-Agent', 'Architecture']}
 >
   <p>
-    'Agentic Learning Fabric'은 학습 인프라를 AI 에이전트 네트워크로 재구성하는
-    개념적 프레임이다. 단일 플랫폼이나 LMS를 대체하는 것이 아니라, 학습자·교수자·
-    콘텐츠·평가·피드백이 에이전트를 매개로 유기적으로 연결되는 새로운 구조를 제안한다.
-  </p>
-
-  <p>
-    기존 학습 시스템이 '파이프라인'이었다면, Agentic Learning Fabric은 '직물(fabric)'에
-    가깝다. 각 에이전트는 독립적으로 작동하면서도 전체 맥락을 공유하고,
-    학습자의 상태에 반응하며, 필요에 따라 다른 에이전트를 호출한다.
+    전통적인 LMS가 '코스 저장소 + 진도관리'에 머물렀다면, Agentic Learning Fabric(ALF)은 학습·평가·운영 전반을 자율적으로 수행하는 다중 AI 에이전트가 공용 데이터·정책·신뢰 레이어 위에서 긴밀히 협업하는 혁신적 구조를 지향한다. 이 체계는 확장성과 개인화, 신뢰성, 투명성을 극대화하는 기술 아키텍처로, 미래 교육 플랫폼의 뉴노멀을 제시한다.
   </p>
 
   <hr class="divider" />
 
-  <h2>핵심 구성 요소</h2>
+  <h2>1. ALF의 5계층 Layered Reference Architecture</h2>
 
-  <h3>학습자 에이전트 (Learner Agent)</h3>
   <p>
-    개별 학습자의 진도, 이해도, 관심사, 학습 패턴을 추적하고 최적의 학습 경로를
-    실시간으로 조율하는 퍼스널 에이전트.
+    ALF 아키텍처는 핵심 레이어별 명확한 역할 구분, 표준 기반 상호운용성, 지속가능한 성장성을 최우선으로 설계된다.
   </p>
 
-  <h3>콘텐츠 에이전트 (Content Agent)</h3>
+  <h3>경험 레이어 (Experience Layer)</h3>
   <p>
-    학습자 상태에 맞게 콘텐츠를 큐레이션하고, 필요시 새로운 설명이나 예시를
-    생성하며, 난이도를 동적으로 조절하는 에이전트.
+    학습자·교수자·관리자용 대화형 UI, 멀티모달 입력(텍스트/음성/비디오/화이트보드), 실시간 알림 및 분석을 담당한다. Moodle 플러그인 또는 확장된 React UI를 통해 챗형 인터페이스와 음성(Python Whisper), 이미지(CLIP) 처리를 제공한다. 학습자는 자연어("오늘 내가 익힐 개념이 뭐야?") 형태로 에이전트에게 요청하면 즉각 플랜을 받는다.
   </p>
 
-  <h3>평가 에이전트 (Assessment Agent)</h3>
+  <h3>지능 레이어 (Intelligence Layer)</h3>
   <p>
-    단순 정답/오답을 넘어 학습자의 사고 과정과 이해 수준을 진단하고,
-    피드백을 생성하는 에이전트. 결과가 아닌 과정을 평가한다.
+    역할별 에이전트(학습자 코치, 교사 코파일럿, 코스 디자이너, 평가·루브릭, 운영·알림 등)와 LLM 기반 오케스트레이션으로 구성된다. 각 에이전트는 FastAPI/Node 기반 마이크로서비스로 xAPI 이벤트를 실시간 구독하며 Function Calling 기반으로 도구를 활용한다. Learner Coach는 학습자 목표·이력으로 스킬그래프를 분석해 개인화 플랜을 생성하고, Assessment Agent는 표절 감지·AI 과다사용 플래그와 근거 기반 평가를 수행한다.
+  </p>
+
+  <h3>데이터/그래프 레이어 (Data/Graph Layer)</h3>
+  <p>
+    Skill Graph(Neo4j)는 역량-선수지식-난이도-평가 관계를 모델링한다. VectorDB(pgvector, Weaviate)는 학습자료·녹화·문서 임베딩을 RBAC/ABAC 기반으로 권한 인덱싱·검색한다. xAPI 이벤트 스트림과 LRS가 표준 학습활동을 로그하며 OLAP와 연동된다. 학습자 행동이 xAPI 이벤트로 생성되면 Kafka 이벤트버스를 통해 LRS에 기록되고, Skill Graph와 VectorDB에서 컨텍스트가 회수되어 추천이나 개입의 증거로 사용된다.
+  </p>
+
+  <h3>신뢰/정책 레이어 (Trust & Policy Layer)</h3>
+  <p>
+    정책/가드레일 엔진(Open Policy Agent)이 금지 주제, 저작권, 평가 공정성, AI 행동 제약을 강제한다. Explainability 모듈은 에이전트의 모든 추천·채점·피드백에 출처 링크, 근거 스니펫, 신뢰도 점수를 자동 주입한다. 개인정보 금고(PII Vault)는 민감 데이터를 토큰화·암호화하고 영역별 키와 접근 제어를 관리한다.
+  </p>
+
+  <h3>통합 레이어 (Integration Layer)</h3>
+  <p>
+    기존 LMS/LRS, 외부 콘텐츠 저장소, H5P/Zoom 등 생산성 도구(LTI 1.3), HR/학사 정보, 인증(SSO), 결제 시스템을 SCORM/xAPI/LTI OneRoster 등 표준 기반으로 연동한다.
+  </p>
+
+  <h2>2. 다중 에이전트 협업 패러다임</h2>
+
+  <p>
+    ALF는 분산·자율·협력 구조를 본질로 하며, 각 에이전트는 센서(이벤트 감지), 행동계획(개인화 워크플로우 설계), 지식베이스(일반/개인 context)와 학습 컴포넌트로 구성된다. 중앙 집중이 아닌 현장 적응적 분산 지능과 조정 메커니즘(Multi-Agent Markov Game, Virtual Reward 등)으로 시너지를 극대화한다. 안전한 계획, 권한·신뢰 기반 상호작용, 실시간 적응·충돌 해소 등 MAS 최신 연구가 적용된다.
+  </p>
+
+  <h2>3. 기술 스택</h2>
+
+  <p>
+    경험 레이어는 React/Flutter(Moodle 플러그인), Whisper/CLIP으로 챗·멀티모달 UI를 구현한다. 지능 레이어는 LangChain, GPT-4/Claude, FastAPI/Node로 LLM 기반 에이전트와 프롬프트 체이닝을 처리한다. 데이터/그래프 레이어는 Neo4j, pgvector, Kafka, LRS, ClickHouse로 Skill Graph와 벡터 DB, xAPI 이벤트, OLAP를 담당한다. 신뢰/정책 레이어는 Open Policy Agent, Databunker, Guardrails로 정책 강제와 개인정보 관리를 수행한다. 배포는 Kubernetes, Docker, Temporal로 마이크로서비스 오케스트레이션을 처리한다.
+  </p>
+
+  <p>
+    실무 적용 시에는 '플러그인 → MVP → 전체 연동'의 단계별 마이그레이션 전략을 권장한다. 핵심은 "플러그인-에이전트-외부서비스"의 분리와 표준 API 우선 설계, 실패 시 롤백 용이성 보장이다.
+  </p>
+
+  <h2>4. 대표적 데이터 흐름</h2>
+
+  <p>
+    사용자/에이전트 행동이 xAPI 포맷 이벤트로 생성되면, Kafka 이벤트버스를 통해 외부 LRS와 Skill Graph/VectorDB로 실시간 기록·검색된다. AI 에이전트는 실시간 맥락분석 + RAG + 스킬갭 기반으로 추천과 개입을 설계한다. 정책/신뢰 레이어에서 프롬프트 전 정책을 집행하고 근거/신뢰도를 공개한다. 교사 승인(Human-in-the-Loop) 이후 자동 업무/운영이 처리되고, 통합 계층을 통해 기존 LMS, HR, 콘텐츠, 화상회의까지 자동 연동된다.
   </p>
 
   <hr class="divider" />
 
-  <p style="font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace;">
-    에세이 원문 작성 중입니다.
+  <p>
+    다중 에이전트 기반 Agentic Learning Fabric은 단순 LMS를 뛰어넘는 "데이터-신뢰-지능" 결합의 미래 지향적 학습 인프라다. 대화형 경험, 역할별 AI 에이전트 협업, 신뢰/정책 중심 데이터 거버넌스, 표준 기반 통합을 바탕으로 실제 환경에서 점진적이고 실질적인 변화를 창출할 수 있다. 기술적 실현의 모든 단계에서 "인간 중심 개입(Human-in-the-Loop)"과 "Explainability·Policy by Design" 원칙을 일관되게 유지함으로써, 신뢰받는 교육 혁신의 핵심 플랫폼이 될 수 있다.
   </p>
 </ArticleLayout>
