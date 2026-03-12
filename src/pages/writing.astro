@@ -1,0 +1,274 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const writings = [
+  {
+    title: '연결된 배움 — 기술이 교육을 다시 쓴 150년의 이야기',
+    titleEn: 'Connected Learning',
+    type: '책 · Book',
+    date: '2024–2025',
+    chapters: 12,
+    desc: '우편 통신 교육부터 AI 에이전트까지, 교육 기술의 역사를 통해 학습의 본질을 탐구합니다.',
+    tags: ['EdTech', 'AI', 'Education History'],
+    status: '집필 중',
+    href: '#',
+  },
+  {
+    title: 'AI Agent 혁명 — 현장 보고서',
+    titleEn: 'AI Agent Revolution: A Field Report',
+    type: '발표문 · Presentation',
+    date: '2026',
+    desc: '테크데이 2026 발표. AI 에이전트를 직접 설계하고 운영한 경험에서 나온 현장 보고서.',
+    tags: ['AI Agent', 'Automation', 'Future of Work'],
+    status: '완료',
+    href: '/writing/ai-agent-revolution',
+  },
+  {
+    title: 'AI 슈퍼위크 이후 — 지식 노동의 미래에 대한 브리핑',
+    titleEn: 'After AI Super Week: The Future of Knowledge Work',
+    type: '발표문 · Presentation',
+    date: '2025',
+    desc: '2025년 AI 슈퍼위크 이후 지식 노동의 지형 변화를 분석한 브리핑. 성공회대 AIED 워크샵.',
+    tags: ['AI', 'Future of Work', 'Knowledge Work'],
+    status: '완료',
+    href: '/writing/ai-superweek',
+  },
+  {
+    title: 'AI는 회사를 어떻게 바꿀까?',
+    titleEn: 'How AI Transforms Organizations',
+    type: '에세이 · Essay',
+    date: '2025',
+    desc: 'AI 도입이 조직 구조와 업무 방식에 미치는 실질적 영향. 개인·팀·전략 세 레이어로 분석한다.',
+    tags: ['AI', 'Organization', 'Future of Work'],
+    status: '완료',
+    href: '/writing/ai-company-change',
+  },
+  {
+    title: 'AX 인재상 재정의와 혁신 전략',
+    titleEn: 'Redefining AX Talent and Innovation Strategy',
+    type: '발표문 · Presentation',
+    date: '2025',
+    desc: 'AI 전환 시대의 새로운 인재상과 조직 혁신 전략. 기술 역량을 넘어 사고 방식으로 인재를 정의한다.',
+    tags: ['AX', 'Talent', 'Innovation'],
+    status: '완료',
+    href: '/writing/ax-talent',
+  },
+  {
+    title: 'AI 시대, 대학 교육의 패러다임 전환을 위한 제언',
+    titleEn: 'Paradigm Shift in University Education in the AI Era',
+    type: '발표문 · Presentation',
+    date: '2025',
+    desc: 'AI가 대학 교육의 평가·교수법·커리큘럼을 어떻게 재설계해야 하는지에 대한 정책 제언.',
+    tags: ['Higher Education', 'AI', 'Policy'],
+    status: '완료',
+    href: '/writing/university-education-ai',
+  },
+  {
+    title: 'AX 시대, 교육의 두 가지 길',
+    titleEn: 'Two Paths of Education in the AI Era',
+    type: '발표문 · Presentation',
+    date: '2025',
+    desc: '국회 워크숍 발표. 한국 EdTech를 전략적 수출 산업으로 재정의하는 정책 제언.',
+    tags: ['Policy', 'Korea EdTech', 'AI Strategy'],
+    status: '완료',
+    href: '#',
+  },
+  {
+    title: 'Agentic Learning Fabric',
+    titleEn: 'Agentic Learning Fabric: Next-Gen Learning Infrastructure',
+    type: '에세이 · Essay',
+    date: '2025',
+    desc: 'AI 에이전트 기반의 차세대 학습 인프라 개념. 학습자·콘텐츠·평가가 에이전트로 연결되는 새로운 구조.',
+    tags: ['AI Agent', 'Learning Design', 'EdTech'],
+    status: '작성 중',
+    href: '/writing/agentic-learning-fabric',
+  },
+  {
+    title: 'AI 민주화와 교육 조직의 전환',
+    titleEn: 'AI Democratization in Educational Organizations',
+    type: '에세이 · Essay',
+    date: '2025',
+    desc: '노코드 AI 플랫폼이 어떻게 교육 기관의 디지털 전환을 가속화하는가.',
+    tags: ['AI', 'No-Code', 'Digital Transformation'],
+    status: '완료',
+    href: '#',
+  },
+];
+---
+
+<Layout title="Writing">
+  <style>
+    .page-header {
+      padding: 5rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .page-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-intro {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    .writing-list {
+      padding: 3rem 2.5rem;
+    }
+
+    .writing-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: padding-left 0.15s;
+    }
+
+    .writing-item:hover {
+      padding-left: 0.5rem;
+    }
+
+    .writing-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .writing-date {
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .writing-type {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .writing-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .writing-body h2 a {
+      transition: color 0.2s;
+    }
+
+    .writing-body h2 a:hover {
+      color: var(--accent);
+    }
+
+    .writing-en {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 0.75rem;
+    }
+
+    .writing-desc {
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      max-width: 600px;
+    }
+
+    .writing-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .writing-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      padding-top: 0.25rem;
+    }
+
+    .status-badge {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .status-badge.done {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .chapters-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .page-header { grid-template-columns: 1fr; }
+      .writing-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .writing-status { align-items: flex-start; }
+    }
+  </style>
+
+  <header class="page-header">
+    <h1 class="page-title">
+      Writing &<br/>
+      <em>Ideas</em>
+    </h1>
+    <p class="page-intro">
+      교육 기술, AI 전환, ODA 프로젝트 현장에서 쓴 글들.<br/>
+      책, 에세이, 발표문, 정책 제언까지.
+    </p>
+  </header>
+
+  <div class="writing-list">
+    {writings.map((w) => (
+      <article class="writing-item">
+        <div class="writing-meta">
+          <span class="writing-date">{w.date}</span>
+          <span class="writing-type">{w.type}</span>
+        </div>
+
+        <div class="writing-body">
+          <h2><a href={w.href}>{w.title}</a></h2>
+          <p class="writing-en">{w.titleEn}</p>
+          <p class="writing-desc">{w.desc}</p>
+          <div class="writing-tags">
+            {w.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        </div>
+
+        <div class="writing-status">
+          <span class={`status-badge ${w.status === '완료' ? 'done' : ''}`}>{w.status}</span>
+          {w.chapters && <span class="chapters-badge">{w.chapters} chapters</span>}
+        </div>
+      </article>
+    ))}
+  </div>
+</Layout>

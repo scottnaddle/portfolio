@@ -1,0 +1,293 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const digests = [
+  {
+    week: '2026-W08',
+    date: '2026년 2월 3주',
+    count: 12,
+    sources: ['arXiv', 'EdSurge', 'Frontiers', 'OECD'],
+    topics: ['LLM in Education', 'AI Safety', 'K-12 EdTech', 'Adaptive Learning'],
+    highlight: 'AI 에이전트 기반 교육 도구의 실증 연구가 본격화되는 흐름. AAAI 2026 AI4EDU 워크샵 논문 다수 수록.',
+    href: '#',
+    status: 'published',
+  },
+];
+
+const topicAreas = [
+  {
+    slug: 'llm-in-education',
+    label: 'LLM in Education',
+    desc: '대형 언어 모델의 교육적 활용 연구 아카이브',
+    count: '진행 중',
+  },
+  {
+    slug: 'adaptive-learning',
+    label: 'Adaptive Learning',
+    desc: '개인화 학습 및 적응형 시스템 연구',
+    count: '진행 중',
+  },
+  {
+    slug: 'tvet-ai',
+    label: 'TVET & AI',
+    desc: '직업기술교육(TVET)과 AI 접목 연구',
+    count: '진행 중',
+  },
+  {
+    slug: 'oda-edtech',
+    label: 'ODA & EdTech',
+    desc: '개발협력(ODA) 맥락의 EdTech 연구 및 사례',
+    count: '진행 중',
+  },
+];
+---
+
+<Layout title="Research" description="AI 교육 분야 연구 아카이브 — 매주 업데이트되는 논문·기사·인사이트 모음">
+  <style>
+    .page-header {
+      padding: 5rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .page-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-intro {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 2.5rem 2.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* DIGEST LIST */
+    .digest-list {
+      padding: 0 2.5rem;
+    }
+
+    .digest-item {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: padding-left 0.15s;
+    }
+
+    .digest-item:hover {
+      padding-left: 0.5rem;
+    }
+
+    .digest-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .digest-week {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .digest-date {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .digest-count {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .digest-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .digest-body h3 a {
+      transition: color 0.2s;
+    }
+
+    .digest-body h3 a:hover {
+      color: var(--accent);
+    }
+
+    .digest-highlight {
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      max-width: 580px;
+      margin-bottom: 1rem;
+    }
+
+    .digest-sources {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .digest-topics {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .source-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* TOPIC AREAS */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin: 0 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .topic-card {
+      background: var(--bg);
+      padding: 2rem;
+      transition: background 0.15s;
+    }
+
+    .topic-card:hover {
+      background: var(--surface);
+    }
+
+    .topic-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .topic-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .topic-count {
+      font-size: 0.62rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.06em;
+    }
+
+    .coming-soon {
+      padding: 4rem 2.5rem;
+      text-align: center;
+    }
+
+    .coming-soon-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      .page-header { grid-template-columns: 1fr; }
+      .digest-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .topic-grid { grid-template-columns: 1fr; margin: 0 1.5rem; }
+    }
+  </style>
+
+  <header class="page-header">
+    <h1 class="page-title">
+      Research<br/>
+      <em>Archive</em>
+    </h1>
+    <p class="page-intro">
+      AI 교육 분야의 논문·기사·인사이트를 매주 아카이빙합니다.<br/>
+      arXiv, EdSurge, Frontiers, OECD 등 주요 소스를 추적하며<br/>
+      실천 가능한 인사이트를 정리합니다.
+    </p>
+  </header>
+
+  <!-- WEEKLY DIGESTS -->
+  <p class="section-label">Weekly Digest</p>
+  <div class="digest-list">
+    {digests.map((d) => (
+      <article class="digest-item">
+        <div class="digest-meta">
+          <span class="digest-week">{d.week}</span>
+          <span class="digest-date">{d.date}</span>
+          <span class="digest-count">{d.count} articles</span>
+        </div>
+        <div class="digest-body">
+          <h3><a href={d.href}>{d.week} — AI Education Digest</a></h3>
+          <p class="digest-highlight">{d.highlight}</p>
+          <div class="digest-sources">
+            {d.sources.map(s => <span class="source-badge">{s}</span>)}
+          </div>
+          <div class="digest-topics">
+            {d.topics.map(t => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+        <div>
+          <span class="tag accent">Latest</span>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- TOPIC AREAS -->
+  <p class="section-label" style="margin-top: 3rem;">Research Topics</p>
+  <div class="topic-grid">
+    {topicAreas.map((t) => (
+      <div class="topic-card">
+        <p class="topic-label">{t.label}</p>
+        <p class="topic-desc">{t.desc}</p>
+        <span class="topic-count">{t.count}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="coming-soon">
+    <p class="coming-soon-text">더 많은 다이제스트가 업로드될 예정입니다 — updated weekly</p>
+  </div>
+</Layout>

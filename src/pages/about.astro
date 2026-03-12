@@ -1,0 +1,266 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const timeline = [
+  { year: '2025', event: 'UBION AI Transformation Center 구축. 9-에이전트 뉴스룸 런칭.', en: 'AI Newsroom Launch' },
+  { year: '2024', event: '연결된 배움 집필 시작. 국회 워크숍 EdTech 정책 발표.', en: 'Book Writing & Policy Presentation' },
+  { year: '2023', event: 'KOICA 스리랑카 TVET Career Platform 프로젝트 리드.', en: 'Sri Lanka TVET Platform' },
+  { year: '2022', event: 'ADB 캄보디아, UNESCO 카자흐스탄 KSP 프로젝트.', en: 'Cambodia & Kazakhstan ODA' },
+  { year: '2018', event: 'VIDEA EdTech 베트남 법인 설립. (현재 7주년)', en: 'VIDEA Vietnam Office' },
+  { year: '2005', event: 'UBION 공동 창업. 이러닝 컨설팅 시작.', en: 'UBION Co-Founded' },
+];
+
+const skills = [
+  { group: 'EdTech', items: ['LMS/LXP 설계', 'Moodle', 'TVET Systems', 'ODA 컨설팅'] },
+  { group: 'AI & Agents', items: ['Claude API', 'OpenClaw', 'Multi-Agent Systems', 'Claude Code'] },
+  { group: 'Platform', items: ['Ghost CMS', 'Vercel', 'Astro', 'Telegram Bot'] },
+  { group: 'Languages', items: ['Korean (Native)', 'English (Fluent)'] },
+];
+---
+
+<Layout title="About">
+  <style>
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 4.5rem);
+    }
+
+    .about-left {
+      padding: 5rem 2.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .about-right {
+      padding: 5rem 2.5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.0;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .about-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 2.5rem;
+    }
+
+    .about-bio {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+    }
+
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 60px;
+    }
+
+    .contact-value {
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .contact-value:hover {
+      color: var(--accent);
+    }
+
+    /* TIMELINE */
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .timeline {
+      position: relative;
+      margin-bottom: 4rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 48px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1.5rem;
+      padding: 0 0 2rem;
+      position: relative;
+    }
+
+    .timeline-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      padding-top: 0.1rem;
+      text-align: right;
+    }
+
+    .timeline-content {
+      padding-left: 1.5rem;
+    }
+
+    .timeline-event {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-en {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .skill-group h3 {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .skill-item {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      padding-left: 0.75rem;
+      border-left: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .skill-item:hover {
+      color: var(--text);
+      border-color: var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="about-grid">
+    <div class="about-left">
+      <p class="eyebrow">VP & Co-Founder · UBION</p>
+      <h1 class="about-name">
+        <em>Scott</em><br/>
+        스콧
+      </h1>
+      <p class="about-role">AI Transformation · EdTech · ODA Consulting</p>
+
+      <p class="about-bio">
+        20년간 디지털 교육 컨설팅과 ODA 프로젝트를 이끌어온 EdTech 전문가.
+        카자흐스탄, 베트남, 캄보디아, 스리랑카, 우즈베키스탄에서 KOICA, ADB, UNESCO와 함께
+        교육 시스템을 구축했습니다.<br/><br/>
+        현재는 AI 에이전트 시스템으로 업무 자동화를 직접 구현하면서,
+        그 경험을 책과 정책 제언으로 기록하고 있습니다.
+      </p>
+
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-label">Company</span>
+          <a href="https://ubion.co.kr" class="contact-value" target="_blank">UBION (유비온)</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Newsroom</span>
+          <a href="https://insight.ubion.global" class="contact-value" target="_blank">insight.ubion.global</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Based</span>
+          <span class="contact-value">Seoul, Korea</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <h2 class="section-title">Timeline</h2>
+      <div class="timeline">
+        {timeline.map((t) => (
+          <div class="timeline-item">
+            <span class="timeline-year">{t.year}</span>
+            <div class="timeline-content">
+              <p class="timeline-event">{t.event}</p>
+              <p class="timeline-en">{t.en}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 class="section-title">Expertise</h2>
+      <div class="skills-grid">
+        {skills.map((s) => (
+          <div class="skill-group">
+            <h3>{s.group}</h3>
+            <div class="skill-items">
+              {s.items.map(item => <span class="skill-item">{item}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

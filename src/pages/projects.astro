@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// GitHub repo 링크와 프로젝트 정보를 여기에 추가
+const projects = [
+  {
+    name: 'UBION AI Newsroom',
+    nameKo: 'AI 뉴스룸',
+    desc: 'Ghost CMS 기반 9-에이전트 자동 발행 시스템. ODA 입찰 정보 수집, 요약, 발행 자동화.',
+    tech: ['Ghost CMS', 'OpenClaw', 'Telegram', 'Node.js'],
+    category: 'AI System',
+    year: '2025',
+    live: 'https://insight.ubion.global',
+    repo: null,
+    highlight: true,
+  },
+  {
+    name: 'OpenClaw Multi-Agent Pipeline',
+    nameKo: '멀티에이전트 파이프라인',
+    desc: 'Aria 오케스트레이터 + 6개 전문 에이전트 (Muse, Rex, Nova, Lena 등). agentToAgent 프로토콜 기반.',
+    tech: ['OpenClaw', 'Claude API', 'Multi-Agent'],
+    category: 'AI Architecture',
+    year: '2025',
+    live: null,
+    repo: null,
+    highlight: false,
+  },
+  {
+    name: 'ODA Bid Intelligence System',
+    nameKo: 'ODA 입찰 인텔리전스',
+    desc: 'KOICA, NIPA, NIA 공고 자동 수집 및 분석. 관련성 스코어링 후 Telegram 알림.',
+    tech: ['Python', 'Scraping', 'Telegram Bot', 'Claude'],
+    category: 'Automation',
+    year: '2025',
+    live: null,
+    repo: null,
+    highlight: false,
+  },
+  {
+    name: 'TVET Career Platform (Sri Lanka)',
+    nameKo: 'TVET 커리어 플랫폼',
+    desc: 'KOICA ODA 프로젝트. 스리랑카 직업교육 기관을 위한 디지털 커리어 관리 시스템.',
+    tech: ['Moodle', 'LMS', 'KOICA', 'ODA'],
+    category: 'EdTech Platform',
+    year: '2023–2025',
+    live: null,
+    repo: null,
+    highlight: false,
+  },
+  {
+    name: 'Meeting Minutes Agent',
+    nameKo: '회의록 자동화 에이전트',
+    desc: 'Claude Code + MCP + Whisper API로 ODA 프로젝트 회의 자동 전사 및 요약 생성.',
+    tech: ['Claude Code', 'MCP', 'Whisper API', 'Obsidian'],
+    category: 'Productivity',
+    year: '2025',
+    live: null,
+    repo: null,
+    highlight: false,
+  },
+  {
+    name: 'NotebookLM REST Wrapper',
+    nameKo: 'NotebookLM 통합',
+    desc: 'NotebookLM을 OpenClaw 파이프라인에 연동하는 REST API 래퍼. 뉴스룸 리서치 자동화.',
+    tech: ['REST API', 'NotebookLM', 'OpenClaw'],
+    category: 'Integration',
+    year: '2025',
+    live: null,
+    repo: null,
+    highlight: false,
+  },
+];
+
+const categories = ['All', ...new Set(projects.map(p => p.category))];
+---
+
+<Layout title="Projects">
+  <style>
+    .page-header {
+      padding: 5rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .page-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-intro {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    .projects-grid {
+      padding: 3rem 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.2s;
+    }
+
+    .project-card:hover {
+      background: var(--surface);
+    }
+
+    .project-card.highlight {
+      grid-column: span 2;
+      border-left: 3px solid var(--accent);
+    }
+
+    .proj-category {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .proj-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .project-card.highlight .proj-name {
+      font-size: 1.6rem;
+    }
+
+    .proj-name-ko {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+    }
+
+    .proj-desc {
+      font-size: 0.78rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      margin-top: 0.25rem;
+    }
+
+    .proj-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .proj-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .proj-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .proj-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .proj-link {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .proj-link:hover {
+      color: var(--accent);
+      border-color: var(--accent-dim);
+    }
+
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .project-card.highlight { grid-column: span 2; }
+    }
+
+    @media (max-width: 600px) {
+      .page-header { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.highlight { grid-column: span 1; }
+    }
+  </style>
+
+  <header class="page-header">
+    <h1 class="page-title">
+      Projects &<br/>
+      <em>Systems</em>
+    </h1>
+    <p class="page-intro">
+      AI 에이전트, ODA EdTech 플랫폼, 자동화 시스템.<br/>
+      현장에서 직접 만들고 운영한 것들.
+    </p>
+  </header>
+
+  <div class="projects-grid">
+    {projects.map((p) => (
+      <div class={`project-card ${p.highlight ? 'highlight' : ''}`}>
+        <span class="proj-category">{p.category}</span>
+        <h2 class="proj-name">{p.name}</h2>
+        <span class="proj-name-ko">{p.nameKo}</span>
+        <p class="proj-desc">{p.desc}</p>
+        <div class="proj-tech">
+          {p.tech.map(t => <span class="tag">{t}</span>)}
+        </div>
+        <div class="proj-footer">
+          <span class="proj-year">{p.year}</span>
+          <div class="proj-links">
+            {p.live && <a href={p.live} class="proj-link" target="_blank">Live ↗</a>}
+            {p.repo && <a href={p.repo} class="proj-link" target="_blank">GitHub ↗</a>}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</Layout>

@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// YouTube 영상 ID와 정보를 여기에 추가
+const videos = [
+  {
+    title: '샘플 영상 제목',
+    titleEn: 'Sample Video Title',
+    youtubeId: 'dQw4w9WgXcQ', // 실제 YouTube ID로 교체하세요
+    date: '2025',
+    duration: '24:30',
+    type: '발표 · Talk',
+    desc: '여기에 영상 설명을 입력하세요.',
+    tags: ['AI', 'EdTech'],
+  },
+];
+---
+
+<Layout title="Videos">
+  <style>
+    .page-header {
+      padding: 5rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .page-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-intro {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    .videos-list {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .video-item {
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 0;
+      transition: background 0.2s;
+    }
+
+    .video-item:hover {
+      background: var(--surface);
+    }
+
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .video-thumb iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    .video-info {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .video-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .video-type {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .video-duration {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .video-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .video-title-en {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .video-desc {
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-family: 'Noto Serif KR', serif;
+    }
+
+    .video-tags {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .empty-state {
+      padding: 5rem 2.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-state p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .page-header { grid-template-columns: 1fr; }
+      .video-item { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <header class="page-header">
+    <h1 class="page-title">
+      Talks &<br/>
+      <em>Videos</em>
+    </h1>
+    <p class="page-intro">
+      컨퍼런스 발표, 강의, 인터뷰.<br/>
+      교육과 AI의 교차점에서 이야기합니다.
+    </p>
+  </header>
+
+  <div class="videos-list">
+    {videos.length > 0 ? videos.map((v) => (
+      <div class="video-item">
+        <div class="video-thumb">
+          <div class="video-thumb-placeholder">
+            <div class="play-icon">▶</div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-meta">
+            <span class="video-type">{v.type}</span>
+            <span class="video-duration">{v.duration}</span>
+            <span class="video-duration">{v.date}</span>
+          </div>
+          <h2 class="video-title">{v.title}</h2>
+          <p class="video-title-en">{v.titleEn}</p>
+          <p class="video-desc">{v.desc}</p>
+          <div class="video-tags">
+            {v.tags.map(t => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+      </div>
+    )) : (
+      <div class="empty-state">
+        <p>영상 콘텐츠를 준비 중입니다.<br/>곧 업데이트될 예정입니다.</p>
+      </div>
+    )}
+  </div>
+</Layout>

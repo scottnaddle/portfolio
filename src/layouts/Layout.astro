@@ -1,0 +1,149 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Scott's AI & EdTech Portfolio" } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} — Scott</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
+  <style is:global>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #171717;
+      --border: #2a2a2a;
+      --text: #e8e4dc;
+      --muted: #7a7670;
+      --accent: #c9a84c;
+      --accent-dim: #8a6e2e;
+      --red: #c4523a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', 'Noto Serif KR', monospace;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* PAGE WRAPPER */
+    main {
+      padding-top: 4.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-top: 6rem;
+    }
+
+    /* UTILS */
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .tag.accent {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">Scott · 스콧</a>
+    <ul class="nav-links">
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/research">Research</a></li>
+      <li><a href="/projects">Projects</a></li>
+      <li><a href="/videos">Videos</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+  <main>
+    <slot />
+  </main>
+  <footer>
+    <span>© 2025 Scott · UBION</span>
+    <span>EdTech · ODA · AI</span>
+  </footer>
+</body>
+</html>
